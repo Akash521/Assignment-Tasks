@@ -2,7 +2,7 @@ const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
 const sequelize = new Sequelize(
-   "Pusers", //DB Name
+   "TaskManagement", //DB Name
     "root", //DB Username
     "", // DB Password
     {

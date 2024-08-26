@@ -1,9 +1,32 @@
-# Node.js Project README
+# Task 2
 
 ## Overview
 
 This project is a Node.js application that includes models for `User`, `Project`, and `Timesheet`, along with CRUD API endpoints for each model. The application includes authentication to protect the endpoints, and it uses Sequelize for ORM with a MySQL database.
 
+```bash
+                +-----------+            +------------------+            +-------------------+
+                |   Client   |            |   API Gateway    |            |   Auth Service    |
+                |  (Postman  |----------->| (Routing Layer)  |<---------->| (JWT Validation   |
+                |            |            |                  |            | & Token Issuance) |
+                +-----------+            +--------+---------+            +---------+---------+
+                                                       |                                |
+                                                       |                                |
+                                           +-----------+-----------+                    |
+                                           |                       |                    |
+                           +---------------v-----------+    +------v-----------+        |
+                           |       Middleware           |    |  Timesheet       |       |
+                           | (Logging, Auth, Validation)|    |  Project         |       |
+                           |                           |    |  User Services    |       |
+                           +--------------+------------+    +-------------------+       |
+                                              |                                         |
+                                              +------------------------------------------+
+                                                               |
+                                                               v
+                                                           +-------+
+                                                           |  DB    |
+                                                           +-------+
+```
 ## Features
 
 - **Models**:
@@ -206,6 +229,18 @@ Response: {
   "name": "Project A", 
   "status": "Completed", 
   ... 
+}
+
+
+User Assign to Project: POST /api/projects/assign
+
+Request Header: headers = {'x-access-token': 'jwt_token'}
+Request Body: {
+  "userId": 2,
+  "projectId": 2
+}
+Response: {
+  "message": "User assigned to project"
 }
 
 Delete Project: POST /api/projects/delete
